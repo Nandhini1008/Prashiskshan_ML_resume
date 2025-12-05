@@ -1,0 +1,146 @@
+{
+  "success": true,
+  "resume_text": "NANDHINI PRAKASH \nChennai | 6380025060 | Email ID | GitHub Link | LinkedIN Link \nAI and backend developer specializing in computer vision, LLM-based intelligent\nagents, and end-to-end automation systems. Demonstrated leadership and a strong\ntrack record of delivering deployable, real-world AI solutions with measurable\nimpact.\nCLUBS & INTERNSHIPS \nTECHNICAL ASSOCIATE\nBuilt certificate generator & text recognition tools.\nDEVS CLUB REC\nMAR 2025\nPRESENT\nTECHNICAL ASSOCIATE\nPOSTER DESIGNER\nWorked on technical implementations & poster designs.\nOCT 2024 \nPRESENT\nTECH BUDDY SPACE\nINTERN \nPerformed EDA & FastAPI development.\nGained experience in teamwork & professional\ncommunication.\nJUN 2025  \nJUL 2025\nBICS Global Ltd\nPROJECTS\n1. Certificate Automation System\nAutomated certificate generation using placeholder mapping\nand template saving. \nTech Stack: React, FastAPI, REST API, Vercel, Render\n2. Emotion & Face Detection System\nReal-time face and emotion recognition via webcam using\nCV models.\nTech Stack: OpenCV, RetinaFace, YOLOv8, TensorFlow,\nFastAPI\n3. Validly – Competitor Analysis Agent\nAI agent to crawl competitors, extract insights, and provide\nLLM-based analysis. \nTech Stack: Meta LLM, Selenium, BeautifulSoup,\nCloudscraper\n4. AI Assistant for Visually Impaired Users\nVision-based assistant that detects objects, traffic lights, and\ntext, converting to speech output. \nTech Stack: OpenCV, YOLOv8, CRAFT, PaddleOCR, Meta\nLLM, pyttsx3\nEDUCATION \n12\n (HSC): 92.8 % \n2022 - 2023 \nMAHARISHI VIDYA MANDIR, MANGADU \nth\n10\n (SSC): 91.8 % \nMAHARISHI VIDYA MANDIR, MANGADU \nth\n2020 - 2021\nPresent \nCGPA: \n8.61\nRAJALASHMI ENGINEERING COLLEGELEADERSHIP AND ENVOLVEMENT\nStrong leadership & team collaboration in multiple technical clubs\nEffective communicator with project execution ownership\nACHIEVEMENTS\nSelected for Smart India Hackathon (SIH) internal rounds in 2024 &\n2025\nRunner-up in Kaggle competition\nFinalist at Spectrum Hackathon, VIT Chennai\nSKILLS\nProgramming & Backend Development: FastAPI, REST APIs, Python, React\nAI & Machine Learning: LLMs (Meta), TensorFlow, YOLOv8, OpenCV, Computer Vision\nTools & Platforms: Selenium, BeautifulSoup, Cloudscraper, Vercel, Render\nSoft Skills: Leadership, Team Management, Communication, Punctuality\nLanguages: Tamil, English",
+  "text_length": 2279,
+  "evaluation": {
+    "standard_ats_score": 69,
+    "ai_ats_score": 56,
+    "rubric_ats_score": 47,
+    "final_ats_score": 57,
+    "shortlist_decision": "No",
+    "analysis_summary": {
+      "strengths": [
+        "Clean, ATS-parsable format",
+        "All essential sections present",
+        "Proper chronological organization",
+        "Excellent technical projects demonstrating deep expertise in AI, computer vision, and backend development.",
+        "Comprehensive skill section with strong supporting evidence from projects.",
+        "Impressive achievements showcasing competitive success and recognition.",
+        "Clear and concise professional summary highlighting key specializations and impact.",
+        "Good academic record.",
+        "Demonstrated proficiency in computer vision and LLM integration via multiple projects.",
+        "Clear ownership of technical projects, leveraging diverse tech stacks (e.g., FastAPI, React, OpenCV, YOLOv8, Meta LLM)."
+      ],
+      "weaknesses": [
+        "Incomplete contact information",
+        "Insufficient relevant keywords and skills",
+        "Learning Focus: Nandhini, your resume showcases impressive technical projects and a strong skill set in AI and backend development, clearly demonstrated through your project work and achievements. To make your excellent experience even more impactful, focus on two key areas: first, ensure all dates, especially in your 'Clubs & Internships' section, are accurate and reflect current or past engagements to maintain credibility. Second, enhance your internship and club activity descriptions by using strong action verbs and quantifying the impact or results of your contributions whenever possible to highlight your value.",
+        "Critical timeline inconsistencies in 'Clubs & Internships' section with future dates.",
+        "Lack of quantified impact and specific outcomes in internship and club activity descriptions.",
+        "Some vague action verbs and generic phrasing in experience bullets.",
+        "Placeholder contact information needs to be updated.",
+        "Minor typo in a section header.",
+        "✗ Shortlist Decision: Would NOT recommend for interview",
+        "Numerous claims (e.g., 'measurable impact', 'leadership', 'teamwork', 'professional communication') lack explicit, quantified proof."
+      ]
+    },
+    "resume_improvements": {
+      "keyword_and_skills": [
+        {
+          "issue": "Insufficient action verbs in experience descriptions",
+          "recommended_fix": "Start bullet points with strong action verbs like: Developed, Implemented, Led, Designed, Optimized, Achieved, Managed",
+          "reason": "Improves ATS keyword matching and demonstrates relevant expertise"
+        },
+        {
+          "issue": "Missing quantifiable achievements (add metrics, percentages, numbers)",
+          "recommended_fix": "Add specific metrics: percentages, dollar amounts, user counts, or time savings (e.g., 'Improved performance by 40%')",
+          "reason": "Improves ATS keyword matching and demonstrates relevant expertise"
+        },
+        {
+          "issue": "Resume appears to target mid-level positions",
+          "recommended_fix": "Ensure your skills and experience align with mid-level role expectations. Add relevant certifications or advanced skills if targeting higher levels.",
+          "reason": "Aligns resume presentation with career level and target roles"
+        },
+        {
+          "issue": "Vague claims and unsupported soft skill assertions.",
+          "recommended_fix": "Replace subjective claims with specific, action-oriented examples that demonstrate these skills through concrete achievements and their outcomes. Focus on what you did, how you did it, and what the result was. | Example: LEADERSHIP AND INVOLVEMENT: Led a 3-person development team in the successful deployment of the Validly AI Agent, coordinating feature delivery and technical integrations, resulting in a 20% reduction in project timeline over initial estimates.",
+          "reason": "Human Reviewer: Statements like 'Demonstrated leadership', 'Strong leadership & team collaboration', 'Effective communicator', or 'Gained experience in teamwork' are subjective and lack objective evidence. A strict reviewer will dismiss these as unsupported claims that anyone could make, undermining trust."
+        }
+      ],
+      "content_and_bullets": [
+        {
+          "issue": "CRITICAL: No bullet points found - use bullets for achievements",
+          "recommended_fix": "Use bullet points (•, -, or *) to list responsibilities and achievements for better scannability",
+          "reason": "Makes accomplishments more impactful and measurable"
+        },
+        {
+          "issue": "Impact-driven content needs enhancement",
+          "recommended_fix": "Metrics & Impact Score: 60/100",
+          "reason": "Highlights business value and measurable outcomes"
+        }
+      ],
+      "projects_and_experience": [
+        {
+          "issue": "Experience depth could be improved",
+          "recommended_fix": "Evidence & Depth Score: 75/100",
+          "reason": "Demonstrates substantive experience rather than surface-level claims"
+        },
+        {
+          "issue": "Lack of quantified impact and 'why' for projects.",
+          "recommended_fix": "For each project, clearly state the problem addressed, the solution's impact (quantified if possible, e.g., reduced time by X%, improved accuracy by Y%, handled Z users), and the specific outcomes or benefits for users/stakeholders. | Example: Certificate Automation System: Developed an automated certificate generation system using React and FastAPI, reducing manual processing time by 80% and efficiently processing over 500 certificate requests per event, streamlining club administration.",
+          "reason": "Human Reviewer: Strict human reviewers prioritize measurable results and the underlying purpose/problem a project solved. Without these, projects appear as academic exercises or tasks completed, rather than valuable contributions with tangible benefits. 'Measurable impact' is claimed but not proven."
+        }
+      ],
+      "structure_and_formatting": [
+        {
+          "issue": "Location information not clearly stated",
+          "recommended_fix": "Review formatting for consistency and professional appearance",
+          "reason": "Improves readability and professional appearance"
+        }
+      ],
+      "ats_compatibility": [
+        {
+          "issue": "CRITICAL: Missing email address",
+          "recommended_fix": "Review and address this issue to improve ATS compatibility",
+          "reason": "Helps ATS systems better understand your qualifications"
+        },
+        {
+          "issue": "Generic descriptions in club roles and internships.",
+          "recommended_fix": "Elaborate on the specific technical challenges faced, the unique approach or tools used to solve them, and the direct impact or value generated by your work. Provide context for what was built or implemented. | Example: TECHNICAL ASSOCIATE (DEVS CLUB REC): Engineered a Python-based text recognition tool using OpenCV and Tesseract to automate data extraction from event sign-up sheets, improving data processing speed by 40% and reducing manual errors by 25%.",
+          "reason": "Human Reviewer: Bullet points such as 'Worked on technical implementations' or 'Built certificate generator & text recognition tools' (without specific context or impact) are too general. They fail to convey the complexity, specific skills applied, or the value created, making the experience seem trivial or easily repeatable from a tutorial."
+        }
+      ]
+    },
+    "rubric_feedback": {
+      "trusted_signals": [
+        "Demonstrated proficiency in computer vision and LLM integration via multiple projects.",
+        "Clear ownership of technical projects, leveraging diverse tech stacks (e.g., FastAPI, React, OpenCV, YOLOv8, Meta LLM).",
+        "Achieved specific, verifiable awards (Kaggle runner-up, Hackathon finalist)."
+      ],
+      "red_flags": [
+        "Numerous claims (e.g., 'measurable impact', 'leadership', 'teamwork', 'professional communication') lack explicit, quantified proof.",
+        "Absence of 'why' (problem solved, user benefit) for most projects, reducing perceived purpose and impact.",
+        "Vague descriptions (e.g., 'worked on technical implementations', 'gained experience') limit understanding of specific contributions and challenges.",
+        "Lack of non-trivial effort indicators (e.g., debugging complex issues, optimizing performance, handling scalability) diminishes perceived difficulty of work."
+      ],
+      "learning_takeaways": [
+        "Always quantify achievements and impact using metrics (percentages, numbers, time saved, etc.).",
+        "For every project, clearly articulate the 'why' – the problem it solved or the specific benefit it provided.",
+        "Replace generic verbs ('worked on', 'involved in') with strong, action-oriented verbs that demonstrate ownership and specific contributions ('designed', 'built', 'implemented', 'optimized').",
+        "Substantiate soft skills (leadership, communication) with concrete examples of actions taken and their measurable outcomes, rather than just stating them.",
+        "Detail the technical challenges encountered and the solutions implemented to demonstrate depth and non-trivial effort.",
+        "Ensure every statement provides explicit proof for any claim, aligning with an evidence-based review approach."
+      ]
+    }
+  },
+  "enhancement": {
+    "success": true,
+    "enhancement_json_path": "nandhini_resume__Enhancements.json",
+    "enhanced_text_path": "nandhini_resume__Enhanced.txt",
+    "original_text_path": "nandhini_resume__Original.txt",
+    "comparison_path": "nandhini_resume__Comparison.txt",
+    "enhanced_pdf_path": "nandhini_resume__Enhanced.pdf",
+    "enhancements_count": 11,
+    "improvements_applied": [
+      "Enhanced resume content with LLM while preserving structure",
+      "Created PDF-rebuild version with EXACT line count preservation",
+      "Improved wording for clarity and professionalism",
+      "Strengthened action verbs and technical language",
+      "Added impact context without inventing metrics",
+      "Maintained all dates, roles, and original information",
+      "Generated pixel-perfect enhanced PDF with preserved layout"
+    ],
+    "candidate_name": "Global_Ltd",
+    "message": "Generated 11 enhancements successfully!"
+  }
+}

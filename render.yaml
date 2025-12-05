@@ -1,0 +1,33 @@
+services:
+  - type: web
+    name: resume-ats-service
+    env: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: ./
+    region: oregon # Choose your preferred region
+    plan: starter # Free tier, upgrade as needed
+
+    # Environment variables
+    envVars:
+      - key: PORT
+        value: 8002
+      - key: HOST
+        value: 0.0.0.0
+      - key: GOOGLE_API_KEY
+        sync: false # Set this in Render dashboard
+      - key: AI_GEMINI_API_KEY
+        sync: false # Set this in Render dashboard
+      - key: RUBRIC_GEMINI_API_KEY
+        sync: false # Set this in Render dashboard
+
+    # Health check
+    healthCheckPath: /health
+
+    # Auto-deploy
+    autoDeploy: true
+
+    # Build command (optional, Docker handles this)
+    # buildCommand: docker build -t resume-ats .
+
+    # Start command (optional, Dockerfile CMD handles this)
+    # startCommand: python api_server.py

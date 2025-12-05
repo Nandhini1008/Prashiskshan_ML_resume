@@ -1,0 +1,5 @@
+.env
+learn/
+.dockerignore
+__pycache__/
+output/
