@@ -26,7 +26,14 @@ import PyPDF2
 
 from resume_evaluator import ResumeEvaluator
 from resume_enhancer import ResumeEnhancer
-from resume_pdf_generator import ResumePDFGenerator
+
+# PDF Generator (optional - requires reportlab which is heavy for Render free tier)
+try:
+    from resume_pdf_generator import ResumePDFGenerator
+    PDF_GENERATION_AVAILABLE = True
+except ImportError:
+    PDF_GENERATION_AVAILABLE = False
+    print("Warning: PDF generation disabled (reportlab not installed)")
 
 
 class ResumeProcessor:
@@ -39,7 +46,12 @@ class ResumeProcessor:
         
         self.resume_evaluator = ResumeEvaluator()
         self.enhancer = ResumeEnhancer()
-        self.pdf_generator = ResumePDFGenerator()
+        
+        # PDF generator (optional)
+        if PDF_GENERATION_AVAILABLE:
+            self.pdf_generator = ResumePDFGenerator()
+        else:
+            self.pdf_generator = None
     
     def process_resume_pdf(
         self, 

@@ -17,7 +17,13 @@ uvicorn[standard]==0.24.0
 python-multipart==0.0.6
 
 # Note: Excluded to avoid C compiler requirements and save memory:
-# - reportlab (requires pycairo, needs gcc)
+# - reportlab (requires pycairo, needs gcc) - PDF generation disabled
 # - Pillow (not needed for text extraction)
 # - OCR features (paddleocr, torch, opencv)
-# For full features, deploy to Hugging Face Spaces (FREE with 16GB RAM)
+# 
+# The code gracefully handles missing reportlab by disabling PDF generation.
+# Resume analysis and enhancement still work without it.
+# 
+# For full features including PDF generation, deploy to:
+# - Hugging Face Spaces (FREE with 16GB RAM)
+# - Render paid tier with build support
