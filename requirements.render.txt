@@ -1,0 +1,26 @@
+# Minimal Requirements for Render Free Tier (512MB limit)
+# This version excludes heavy OCR dependencies
+
+# Core AI
+google-generativeai==0.3.0
+
+# Environment variables
+python-dotenv==1.0.0
+
+# PDF text extraction (lightweight)
+PyPDF2==3.0.0
+PyMuPDF==1.23.0
+
+# Image processing (minimal)
+Pillow==10.0.0
+
+# PDF generation
+reportlab==4.0.0
+
+# API server
+fastapi==0.104.0
+uvicorn[standard]==0.24.0
+python-multipart==0.0.6
+
+# Note: OCR features (paddleocr, torch, opencv) are disabled to fit memory limits
+# For OCR support, upgrade to a paid Render plan with more memory

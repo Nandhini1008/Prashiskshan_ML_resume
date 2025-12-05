@@ -1,49 +1,49 @@
-# Resume ATS Scoring Service - Docker Image for Render
-FROM python:3.10-slim
+# Resume ATS Scoring Service - Ultra-Optimized for Render Free Tier (512MB)
+# Uses PyPDF2 only (no OCR) to fit in memory limits
+FROM python:3.11-slim
 
 # Set working directory
 WORKDIR /app
 
-# Set environment variables to prevent interactive prompts
-ENV DEBIAN_FRONTEND=noninteractive
-ENV PYTHONUNBUFFERED=1
+# Set environment variables for minimal memory usage
+ENV DEBIAN_FRONTEND=noninteractive \
+    PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PORT=8002 \
+    PYTHONOPTIMIZE=2
 
-# Install system dependencies with retry logic
-RUN apt-get clean && \
-    rm -rf /var/lib/apt/lists/* && \
-    apt-get update --fix-missing && \
-    apt-get install -y --no-install-recommends \
-    build-essential \
-    libgomp1 \
-    libglib2.0-0 \
-    libsm6 \
-    libxext6 \
-    libxrender-dev \
-    libgl1 \
+# Install ONLY essential system dependencies (minimal footprint)
+RUN apt-get update && apt-get install -y --no-install-recommends \
     poppler-utils \
-    wget \
-    ca-certificates \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /usr/share/doc/* \
+    && rm -rf /usr/share/man/*
 
-# Copy requirements first for better caching
-COPY requirements.txt .
+# Copy minimal requirements (NO OCR dependencies)
+COPY requirements.render.txt requirements.txt
 
-# Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Install Python dependencies with minimal footprint
+RUN pip install --no-cache-dir --compile -r requirements.txt \
+    && find /usr/local/lib/python3.11 -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true \
+    && find /usr/local/lib/python3.11 -type f -name '*.pyc' -delete \
+    && find /usr/local/lib/python3.11 -type f -name '*.pyo' -delete
 
-# Copy application code
-COPY . .
+# Copy ONLY essential application files (no OCR directory to save space)
+COPY api_server.py process_resume.py resume_evaluator.py resume_enhancer.py ./
+COPY resume_pdf_generator.py simple_enhancer.py ./
 
-# Create necessary directories
-RUN mkdir -p output OCR/temp analyzer/temp
+# Create minimal directories
+RUN mkdir -p output && chmod 755 output
 
-# Expose port (Render will set PORT environment variable)
+# Expose port
 EXPOSE 8002
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
-    CMD python -c "import requests; requests.get('http://localhost:8002/health')"
+# Minimal health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:${PORT:-8002}/health', timeout=5)" || exit 1
 
-# Run the API server
-CMD ["python", "api_server.py"]
+# Run with single worker to minimize memory
+CMD ["uvicorn", "api_server:app", "--host", "0.0.0.0", "--port", "8002", "--workers", "1", "--log-level", "warning"]

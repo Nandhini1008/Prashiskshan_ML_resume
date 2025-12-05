@@ -15,10 +15,15 @@ import os
 import json
 from typing import Dict, Any, Optional
 
-# Add OCR directory to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'OCR'))
+# Add OCR directory to path (COMMENTED OUT - Using PyPDF2 only for Render deployment)
+# sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'OCR'))
 
-from OCR.ocr_pdf_pipeline import PDFTextExtractor
+# OCR imports (COMMENTED OUT - Using PyPDF2 only)
+# from OCR.ocr_pdf_pipeline import PDFTextExtractor
+
+# Direct PDF extraction
+import PyPDF2
+
 from resume_evaluator import ResumeEvaluator
 from resume_enhancer import ResumeEnhancer
 from resume_pdf_generator import ResumePDFGenerator
@@ -28,8 +33,10 @@ class ResumeProcessor:
     """Complete resume processing pipeline."""
     
     def __init__(self):
-        """Initialize OCR extractor, resume evaluator, and enhancer."""
-        self.ocr_extractor = PDFTextExtractor()
+        """Initialize resume evaluator and enhancer (OCR disabled for Render deployment)."""
+        # OCR extractor (COMMENTED OUT - Using PyPDF2 only)
+        # self.ocr_extractor = PDFTextExtractor()
+        
         self.resume_evaluator = ResumeEvaluator()
         self.enhancer = ResumeEnhancer()
         self.pdf_generator = ResumePDFGenerator()
@@ -122,48 +129,59 @@ class ResumeProcessor:
     
     def _extract_text_from_pdf(self, pdf_path: str, use_ocr: bool) -> str:
         """
-        Extract text from PDF using OCR pipeline.
+        Extract text from PDF using PyPDF2 (OCR disabled for Render deployment).
         
         Args:
             pdf_path: Path to PDF file
-            use_ocr: Whether to use OCR or direct extraction
+            use_ocr: Ignored - always uses PyPDF2 direct extraction
             
         Returns:
             Extracted plain text
         """
-        # Try direct extraction first (faster)
-        if not use_ocr:
-            try:
-                result = self.ocr_extractor.extract_text_from_pdf(pdf_path, use_ocr=False)
-                
-                if result.get('method') in ['PyPDF2', 'PyPDF2_fallback_due_to_pdf2image_error', 
-                                             'PyPDF2_fallback_no_pdf2image']:
-                    # Concatenate text from all pages
-                    text = '\n'.join([page.get('text', '') for page in result.get('pages', [])])
-                    if text.strip():
-                        return text
-            except Exception as e:
-                print(f"⚠ Direct extraction failed: {e}")
-        
-        # Use OCR if direct extraction failed or was requested
-        print("🔍 Using OCR extraction...")
-        result = self.ocr_extractor.extract_text_from_pdf(pdf_path, use_ocr=True)
-        
-        if 'pages' in result:
-            # Concatenate text from all detections
+        # Use PyPDF2 for direct text extraction (works for 95% of resumes)
+        try:
+            print("🔍 Using PyPDF2 direct text extraction...")
             text_parts = []
-            for page in result['pages']:
-                if 'detections' in page:
-                    # OCR-based extraction
-                    for detection in page['detections']:
-                        text_parts.append(detection.get('text', ''))
-                elif 'text' in page:
-                    # Direct extraction
-                    text_parts.append(page['text'])
             
-            return '\n'.join(text_parts)
+            with open(pdf_path, 'rb') as file:
+                pdf_reader = PyPDF2.PdfReader(file)
+                total_pages = len(pdf_reader.pages)
+                
+                print(f"   📄 Processing {total_pages} pages...")
+                
+                for page_num in range(total_pages):
+                    page = pdf_reader.pages[page_num]
+                    page_text = page.extract_text()
+                    
+                    if page_text and page_text.strip():
+                        text_parts.append(page_text)
+                
+                if not text_parts:
+                    raise Exception("No text could be extracted from PDF")
+                
+                extracted_text = '\n'.join(text_parts)
+                print(f"   ✅ Extracted {len(extracted_text)} characters from {total_pages} pages")
+                
+                return extracted_text
+                
+        except Exception as e:
+            print(f"❌ PyPDF2 extraction failed: {e}")
+            raise Exception(f"Failed to extract text from PDF: {str(e)}")
         
-        raise Exception("Failed to extract text from PDF")
+        # OCR extraction (COMMENTED OUT - Not available in Render deployment)
+        # This would require heavy dependencies (torch, paddleocr, opencv)
+        # For OCR support, deploy to Hugging Face Spaces or upgrade Render plan
+        #
+        # if not use_ocr:
+        #     try:
+        #         result = self.ocr_extractor.extract_text_from_pdf(pdf_path, use_ocr=False)
+        #         ...
+        #     except Exception as e:
+        #         print(f"⚠ Direct extraction failed: {e}")
+        #
+        # print("🔍 Using OCR extraction...")
+        # result = self.ocr_extractor.extract_text_from_pdf(pdf_path, use_ocr=True)
+        # ...
     
     def _enhance_resume(
         self,
