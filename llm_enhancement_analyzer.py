@@ -14,8 +14,9 @@ from dotenv import load_dotenv
 import google.generativeai as genai
 
 # Load environment variables from .env file if it exists (for local development)
-# On Render, this will do nothing and os.getenv() will read from system environment
-load_dotenv()
+# On Render, load from secret files location
+load_dotenv()  # Try local .env first
+load_dotenv('/etc/secrets/.env')  # Then try Render secret files location
 
 
 class LLMEnhancementAnalyzer:

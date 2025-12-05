@@ -26,7 +26,9 @@ class AISemanticAnalyzer:
     def __init__(self):
         """Initialize the analyzer with Google Gemini API."""
         # Load from .env file if it exists (for local development)
-        load_dotenv()
+        # On Render, load from secret files location
+        load_dotenv()  # Try local .env first
+        load_dotenv('/etc/secrets/.env')  # Then try Render secret files location
         
         # Use dedicated API key for AI analyzer, fallback to general key
         self.api_key = os.getenv("AI_GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
