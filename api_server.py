@@ -14,6 +14,20 @@ import json
 import tempfile
 from pathlib import Path
 from typing import Dict, Any
+from dotenv import load_dotenv
+
+# Load environment variables from .env file (local) or /etc/secrets/.env (Render)
+load_dotenv()  # Try local .env first
+load_dotenv('/etc/secrets/.env')  # Then try Render secret files location
+
+# Debug: Print API key status at startup
+print("="*60)
+print("🔧 API Server Environment Check")
+print("="*60)
+print(f"GOOGLE_API_KEY present: {bool(os.getenv('GOOGLE_API_KEY'))}")
+print(f"AI_GEMINI_API_KEY present: {bool(os.getenv('AI_GEMINI_API_KEY'))}")
+print(f"RUBRIC_GEMINI_API_KEY present: {bool(os.getenv('RUBRIC_GEMINI_API_KEY'))}")
+print("="*60)
 
 from process_resume import ResumeProcessor
 
