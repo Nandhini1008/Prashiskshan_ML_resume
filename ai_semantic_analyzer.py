@@ -25,15 +25,30 @@ class AISemanticAnalyzer:
     
     def __init__(self):
         """Initialize the analyzer with Google Gemini API."""
+        # Load from .env file if it exists (for local development)
         load_dotenv()
+        
         # Use dedicated API key for AI analyzer, fallback to general key
         self.api_key = os.getenv("AI_GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
         
+        # Debug logging
+        print(f"AI Analyzer - API Key found: {bool(self.api_key)}")
+        print(f"AI Analyzer - Gemini available: {GEMINI_AVAILABLE}")
+        
         if self.api_key and GEMINI_AVAILABLE:
-            genai.configure(api_key=self.api_key)
-            self.model = genai.GenerativeModel("gemini-2.5-flash")
-            self.available = True
+            try:
+                genai.configure(api_key=self.api_key)
+                self.model = genai.GenerativeModel("gemini-2.5-flash")
+                self.available = True
+                print("✅ AI Semantic Analyzer initialized successfully")
+            except Exception as e:
+                print(f"❌ AI Semantic Analyzer initialization failed: {e}")
+                self.available = False
         else:
+            if not self.api_key:
+                print("❌ AI Semantic Analyzer: No API key found")
+            if not GEMINI_AVAILABLE:
+                print("❌ AI Semantic Analyzer: google-generativeai not installed")
             self.available = False
     
     def analyze(self, resume_text: str) -> Dict[str, Any]:

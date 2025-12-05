@@ -13,10 +13,9 @@ from typing import Dict, Any, List
 from dotenv import load_dotenv
 import google.generativeai as genai
 
-# Load environment variables
-project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-env_path = os.path.join(project_root, '.env')
-load_dotenv(env_path)
+# Load environment variables from .env file if it exists (for local development)
+# On Render, this will do nothing and os.getenv() will read from system environment
+load_dotenv()
 
 
 class LLMEnhancementAnalyzer:
@@ -25,11 +24,24 @@ class LLMEnhancementAnalyzer:
     def __init__(self):
         """Initialize the LLM analyzer."""
         api_key = os.getenv('GOOGLE_API_KEY')
-        if not api_key:
-            raise ValueError("GOOGLE_API_KEY not found in environment variables")
         
-        genai.configure(api_key=api_key)
-        self.model = genai.GenerativeModel('gemini-2.5-flash')
+        # Debug logging
+        print(f"LLM Enhancement Analyzer - API Key found: {bool(api_key)}")
+        
+        if not api_key:
+            print("❌ LLM Enhancement Analyzer: No API key found - enhancement will be disabled")
+            self.available = False
+            self.model = None
+        else:
+            try:
+                genai.configure(api_key=api_key)
+                self.model = genai.GenerativeModel('gemini-2.5-flash')
+                self.available = True
+                print("✅ LLM Enhancement Analyzer initialized successfully")
+            except Exception as e:
+                print(f"❌ LLM Enhancement Analyzer initialization failed: {e}")
+                self.available = False
+                self.model = None
     
     def generate_enhancements(
         self,
@@ -46,6 +58,14 @@ class LLMEnhancementAnalyzer:
         Returns:
             Dictionary with enhancements in JSON format
         """
+        # Check if LLM is available
+        if not self.available or not self.model:
+            print("⚠️ LLM Enhancement unavailable - returning empty enhancements")
+            return {
+                "enhancements": [],
+                "summary": "LLM enhancement unavailable (API key not configured)"
+            }
+        
         try:
             print("🤖 Analyzing evaluation with LLM...")
             

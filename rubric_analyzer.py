@@ -24,15 +24,30 @@ class EvidenceBasedRubricAnalyzer:
     
     def __init__(self):
         """Initialize the analyzer with Google Gemini API."""
+        # Load from .env file if it exists (for local development)
         load_dotenv()
+        
         # Use dedicated API key for rubric analyzer, fallback to general key
         self.api_key = os.getenv("RUBRIC_GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
         
+        # Debug logging
+        print(f"Rubric Analyzer - API Key found: {bool(self.api_key)}")
+        print(f"Rubric Analyzer - Gemini available: {GEMINI_AVAILABLE}")
+        
         if self.api_key and GEMINI_AVAILABLE:
-            genai.configure(api_key=self.api_key)
-            self.model = genai.GenerativeModel("gemini-2.5-flash")
-            self.available = True
+            try:
+                genai.configure(api_key=self.api_key)
+                self.model = genai.GenerativeModel("gemini-2.5-flash")
+                self.available = True
+                print("✅ Rubric Analyzer initialized successfully")
+            except Exception as e:
+                print(f"❌ Rubric Analyzer initialization failed: {e}")
+                self.available = False
         else:
+            if not self.api_key:
+                print("❌ Rubric Analyzer: No API key found")
+            if not GEMINI_AVAILABLE:
+                print("❌ Rubric Analyzer: google-generativeai not installed")
             self.available = False
     
     def analyze(self, resume_text: str) -> Dict[str, Any]:
