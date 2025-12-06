@@ -91,12 +91,18 @@ class EvidenceBasedRubricAnalyzer:
             print("🔄 Sending request to Gemini API (gemini-2.5-flash)...")
             print("⏳ Waiting for rubric analysis... (this may take 5-15 seconds)")
             
+            import time
+            start_time = time.time()
+            
             response = self.model.generate_content(
                 prompt,
                 generation_config=genai.GenerationConfig(
                     response_mime_type="application/json"
                 )
             )
+            
+            elapsed_time = time.time() - start_time
+            print(f"⏱️  API call completed in {elapsed_time:.2f} seconds")
             
             print("✅ Rubric response received successfully!")
             print(f"📊 Response size: {len(response.text)} characters")
@@ -116,6 +122,11 @@ class EvidenceBasedRubricAnalyzer:
             return transformed
             
         except json.JSONDecodeError as e:
+            import traceback
+            print(f"❌ Rubric Analyzer - JSON parsing failed!")
+            print(f"Error: {str(e)}")
+            print(traceback.format_exc())
+            print("=" * 60)
             return {
                 'score': 0,
                 'error': f'Rubric response parsing failed: {str(e)}',
@@ -123,6 +134,11 @@ class EvidenceBasedRubricAnalyzer:
                 'weaknesses': ['Rubric analysis encountered a JSON parsing error']
             }
         except Exception as e:
+            import traceback
+            print(f"❌ Rubric Analyzer - Analysis failed!")
+            print(f"Error: {str(e)}")
+            print(traceback.format_exc())
+            print("=" * 60)
             return {
                 'score': 0,
                 'error': f'Rubric analysis failed: {str(e)}',

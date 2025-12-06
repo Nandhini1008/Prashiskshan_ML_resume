@@ -2,7 +2,7 @@
 # This version excludes heavy OCR and PDF generation dependencies
 
 # Core AI
-google-generativeai==0.3.0
+google-generativeai>=0.8.0
 
 # Environment variables
 python-dotenv==1.0.0

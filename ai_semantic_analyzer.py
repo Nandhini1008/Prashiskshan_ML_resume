@@ -92,12 +92,18 @@ class AISemanticAnalyzer:
             print("🔄 Sending request to Gemini API (gemini-2.5-flash)...")
             print("⏳ Waiting for AI response... (this may take 5-15 seconds)")
             
+            import time
+            start_time = time.time()
+            
             response = self.model.generate_content(
                 prompt,
                 generation_config=genai.GenerationConfig(
                     response_mime_type="application/json"
                 )
             )
+            
+            elapsed_time = time.time() - start_time
+            print(f"⏱️  API call completed in {elapsed_time:.2f} seconds")
             
             print("✅ AI response received successfully!")
             print(f"📊 Response size: {len(response.text)} characters")
@@ -117,6 +123,11 @@ class AISemanticAnalyzer:
             
         except json.JSONDecodeError as e:
             # Fallback if JSON parsing fails
+            import traceback
+            print(f"❌ AI Semantic Analyzer - JSON parsing failed!")
+            print(f"Error: {str(e)}")
+            print(traceback.format_exc())
+            print("=" * 60)
             return {
                 'score': 0,
                 'error': f'AI response parsing failed: {str(e)}',
@@ -124,6 +135,11 @@ class AISemanticAnalyzer:
                 'weaknesses': ['AI analysis encountered a JSON parsing error']
             }
         except Exception as e:
+            import traceback
+            print(f"❌ AI Semantic Analyzer - Analysis failed!")
+            print(f"Error: {str(e)}")
+            print(traceback.format_exc())
+            print("=" * 60)
             return {
                 'score': 0,
                 'error': f'AI analysis failed: {str(e)}',
