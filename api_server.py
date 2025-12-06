@@ -174,11 +174,14 @@ if __name__ == "__main__":
     print(f"{'='*60}")
     print(f"📍 Running on: http://{host}:{port}")
     print(f"📚 API Docs: http://{host}:{port}/docs")
+    print(f"⏱️  Request timeout: 300 seconds (5 minutes)")
     print(f"{'='*60}\n")
     
     uvicorn.run(
         app,
         host=host,
         port=port,
-        log_level="info"
+        log_level="info",
+        timeout_keep_alive=300,  # 5 minutes keep-alive
+        timeout_graceful_shutdown=30
     )
