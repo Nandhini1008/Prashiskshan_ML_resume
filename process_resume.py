@@ -14,6 +14,20 @@ import sys
 import os
 import json
 from typing import Dict, Any, Optional
+from dotenv import load_dotenv
+
+# Load environment variables from .env file (local) or /etc/secrets/.env (Render)
+load_dotenv()  # Try local .env first
+load_dotenv('/etc/secrets/.env')  # Then try Render secret files location
+
+# Debug: Print API key status when process_resume is imported
+print("="*60)
+print("🔧 Process Resume Environment Check")
+print("="*60)
+print(f"GOOGLE_API_KEY present: {bool(os.getenv('GOOGLE_API_KEY'))}")
+print(f"AI_GEMINI_API_KEY present: {bool(os.getenv('AI_GEMINI_API_KEY'))}")
+print(f"RUBRIC_GEMINI_API_KEY present: {bool(os.getenv('RUBRIC_GEMINI_API_KEY'))}")
+print("="*60)
 
 # Add OCR directory to path (COMMENTED OUT - Using PyPDF2 only for Render deployment)
 # sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'OCR'))
