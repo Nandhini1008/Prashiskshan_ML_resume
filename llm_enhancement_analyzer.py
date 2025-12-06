@@ -68,17 +68,29 @@ class LLMEnhancementAnalyzer:
             }
         
         try:
+            print("=" * 60)
+            print("✨ LLM ENHANCEMENT ANALYZER - PROCESSING")
+            print("=" * 60)
             print("🤖 Analyzing evaluation with LLM...")
             
             # Create prompt for LLM
+            print("📝 Creating enhancement generation prompt...")
             prompt = self._create_enhancement_prompt(resume_text, evaluation)
+            print(f"✓ Prompt created ({len(prompt)} characters)")
             
             # Generate enhancements
+            print("🔄 Sending request to Gemini API (gemini-2.5-flash)...")
+            print("⏳ Waiting for enhancement generation... (this may take 5-15 seconds)")
+            
             response = self.model.generate_content(prompt)
             enhancement_json = response.text.strip()
             
+            print("✅ Enhancement response received successfully!")
+            print(f"📊 Response size: {len(enhancement_json)} characters")
+            
             # Parse JSON response
             # Remove markdown code blocks if present
+            print("🔍 Parsing enhancement JSON...")
             if '```json' in enhancement_json:
                 enhancement_json = enhancement_json.split('```json')[1].split('```')[0].strip()
             elif '```' in enhancement_json:
@@ -87,6 +99,8 @@ class LLMEnhancementAnalyzer:
             enhancements = json.loads(enhancement_json)
             
             print(f"✓ Generated {len(enhancements.get('enhancements', []))} enhancements")
+            print("✅ LLM Enhancement Analysis Complete!")
+            print("=" * 60)
             
             return {
                 'success': True,

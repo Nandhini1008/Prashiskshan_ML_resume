@@ -79,10 +79,19 @@ class AISemanticAnalyzer:
             }
         
         try:
+            print("=" * 60)
+            print("🤖 AI SEMANTIC ANALYZER - LLM PROCESSING")
+            print("=" * 60)
+            
             # Create strict pedagogical prompt
+            print("📝 Creating AI analysis prompt...")
             prompt = self._create_strict_prompt(resume_text)
+            print(f"✓ Prompt created ({len(prompt)} characters)")
             
             # Get AI response with JSON output
+            print("🔄 Sending request to Gemini API (gemini-2.5-flash)...")
+            print("⏳ Waiting for AI response... (this may take 5-15 seconds)")
+            
             response = self.model.generate_content(
                 prompt,
                 generation_config=genai.GenerationConfig(
@@ -90,11 +99,19 @@ class AISemanticAnalyzer:
                 )
             )
             
+            print("✅ AI response received successfully!")
+            print(f"📊 Response size: {len(response.text)} characters")
+            
             # Parse JSON response
+            print("🔍 Parsing AI response JSON...")
             result = json.loads(response.text)
+            print(f"✓ JSON parsed - Score: {result.get('ai_ats_score', 0)}/100")
             
             # Transform to our standard format
+            print("🔄 Transforming AI output to standard format...")
             transformed = self._transform_strict_output(result)
+            print("✅ AI Semantic Analysis Complete!")
+            print("=" * 60)
             
             return transformed
             

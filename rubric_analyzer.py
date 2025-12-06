@@ -78,10 +78,19 @@ class EvidenceBasedRubricAnalyzer:
             }
         
         try:
+            print("=" * 60)
+            print("📋 RUBRIC ANALYZER - LLM PROCESSING")
+            print("=" * 60)
+            
             # Create rubric evaluation prompt
+            print("📝 Creating rubric evaluation prompt...")
             prompt = self._create_rubric_prompt(resume_text)
+            print(f"✓ Prompt created ({len(prompt)} characters)")
             
             # Get AI response with JSON output
+            print("🔄 Sending request to Gemini API (gemini-2.5-flash)...")
+            print("⏳ Waiting for rubric analysis... (this may take 5-15 seconds)")
+            
             response = self.model.generate_content(
                 prompt,
                 generation_config=genai.GenerationConfig(
@@ -89,11 +98,20 @@ class EvidenceBasedRubricAnalyzer:
                 )
             )
             
+            print("✅ Rubric response received successfully!")
+            print(f"📊 Response size: {len(response.text)} characters")
+            
             # Parse JSON response
+            print("🔍 Parsing rubric response JSON...")
             result = json.loads(response.text)
+            print(f"✓ JSON parsed - Score: {result.get('rubric_ats_score', 0)}/100")
+            print(f"✓ Shortlist Decision: {result.get('shortlist_decision', 'Unknown')}")
             
             # Transform to standard format
+            print("🔄 Transforming rubric output to standard format...")
             transformed = self._transform_rubric_output(result)
+            print("✅ Rubric Analysis Complete!")
+            print("=" * 60)
             
             return transformed
             
